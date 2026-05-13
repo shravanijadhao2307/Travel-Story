@@ -8,8 +8,9 @@ app.use(express.json());
 
 const authRoutes = require("./src/routes/authRoutes");
 const storyRoutes = require("./src/routes/storyRoutes");
+const userRoutes = require("./src/routes/userRoutes")
 
-
+app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/stories", storyRoutes);
 app.use("/uploads", express.static("uploads"));

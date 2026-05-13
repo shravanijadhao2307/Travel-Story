@@ -8,6 +8,7 @@ const {
   getStoryById,
   updateStory,
   deleteStory,
+  getMyStories
 } = require("../controllers/storyController");
 
 const authMiddleware = require("../middleware/authMiddleware");
@@ -23,6 +24,7 @@ router.post(
   createStory
 );
 router.get("/", getAllStories);
+router.get("/my", authMiddleware, getMyStories);
 router.get("/:id", getStoryById);
 router.put("/:id", authMiddleware, updateStory);
 router.delete("/:id", authMiddleware, deleteStory);

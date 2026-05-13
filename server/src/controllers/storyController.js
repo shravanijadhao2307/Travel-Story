@@ -46,8 +46,6 @@ exports.createStory = async (req, res) => {
   }
 };
 
-// ── Helper: parse image_url / video_url from DB ──────────────────────────────
-// Handles both JSON strings ("[...]") and PostgreSQL array format ("{...}")
 function parseMediaUrls(raw) {
   if (!raw) return [];
 
@@ -193,5 +191,21 @@ exports.deleteStory = async (req, res) => {
   } catch (err) {
     console.error("deleteStory error:", err.message);
     res.status(500).send("Server error");
+  }
+};
+
+exports.getMyStories = async (req, res) => {
+  try {
+    const userId = req.user.id; // from auth middleware
+
+    const result = await pool.query(
+      "SELECT * FROM stories WHERE user_id = $1 ORDER BY created_at DESC",
+      [userId]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to fetch user stories" });
   }
 };
