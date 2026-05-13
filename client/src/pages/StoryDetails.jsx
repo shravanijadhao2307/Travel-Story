@@ -7,6 +7,7 @@ import {
   FaArrowLeft, FaExpand, FaTimes, FaChevronLeft, FaChevronRight,
   FaPlay
 } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 // ── helpers ──────────────────────────────────────────
 function timeAgo(dateStr) {
@@ -39,6 +40,8 @@ function Lightbox({ images, startIndex, onClose }) {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
+
+  const location = useLocation();
 
   return (
     <div
@@ -277,7 +280,7 @@ export default function StoryDetails() {
           <div className="text-5xl mb-4">🗺️</div>
           <h2 className="font-display text-2xl text-white mb-2">Story not found</h2>
           <p className="font-body text-sm text-white/40 mb-6">This story may have been removed.</p>
-          <button onClick={() => navigate("/dashboard")} className="font-body text-sm bg-amber-400 text-[#080b10] rounded-full px-6 py-2.5">
+          <button onClick={() => navigate(location.state?.from || "/dashboard")} className="font-body text-sm bg-amber-400 text-[#080b10] rounded-full px-6 py-2.5">
             Back to Feed
           </button>
         </div>

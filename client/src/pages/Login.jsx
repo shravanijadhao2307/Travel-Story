@@ -46,6 +46,7 @@ export default function Login() {
     try {
       const res = await loginUser(data);
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       toast.success("Login successful 🎉");
       navigate("/dashboard");
     } catch (err) {
